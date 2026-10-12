@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: frameverse
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: FRAMEVERSE_SECRET_KEY
+        generateValue: true
+      - key: FRAMEVERSE_ADMIN_USER
+        sync: false
+      - key: FRAMEVERSE_ADMIN_PASSWORD_HASH
+        sync: false
+      - key: FRAMEVERSE_DATABASE_PATH
+        value: /var/data/frameverse.db
+      - key: FRAMEVERSE_COOKIE_SECURE
+        value: "true"
+    disk:
+      name: frameverse-data
+      mountPath: /var/data
+      sizeGB: 1
